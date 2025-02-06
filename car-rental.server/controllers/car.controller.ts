@@ -34,3 +34,15 @@ export const updateCar = async (carId: string, carInput: CarInput) => {
   return true;
 }
 
+export const deleteCar = async (carId: string) => {
+  const car = await Car.findById(carId);
+
+  if (!car) {
+    throw new Error(`Car:${carId} not find`);
+  }
+
+  await car?.deleteOne();
+  return true;
+}
+
+

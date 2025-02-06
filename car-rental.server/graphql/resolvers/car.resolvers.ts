@@ -1,4 +1,4 @@
-import { createCar, getAllCars, getCarById, updateCar } from "../../controllers/car.controller";
+import { createCar, deleteCar, getAllCars, getCarById, updateCar } from "../../controllers/car.controller";
 import { CarInput } from "../../types/car.types";
 
 export const carResolvers = {
@@ -12,6 +12,9 @@ export const carResolvers = {
     },
     updateCar: async (_: any, { carId, carInput }: { carId: string, carInput: CarInput }) => {
       return await updateCar(carId, carInput);
+    },
+    deleteCar: async (_: any, { carId }: { carId: string }) => {
+      await deleteCar(carId);
     }
   }
 };
