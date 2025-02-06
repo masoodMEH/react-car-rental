@@ -1,4 +1,4 @@
-import { createCar, getAllCars, getCarById } from "../../controllers/car.controller";
+import { createCar, getAllCars, getCarById, updateCar } from "../../controllers/car.controller";
 import { CarInput } from "../../types/car.types";
 
 export const carResolvers = {
@@ -9,6 +9,9 @@ export const carResolvers = {
   Mutation: {
     createCar: async (_: any, { carInput }: { carInput: CarInput }) => {
       return await createCar(carInput);
+    },
+    updateCar: async (_: any, { carId, carInput }: { carId: string, carInput: CarInput }) => {
+      return await updateCar(carId, carInput);
     }
   }
 };

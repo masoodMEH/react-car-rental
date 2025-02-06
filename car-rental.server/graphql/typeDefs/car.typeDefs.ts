@@ -56,7 +56,8 @@ input CarInput{
     getCarById(carId:ID!):Car
   }
 
-    type Mutation {
+  type Mutation {
     createCar(carInput: CarInput!): Car
+    updateCar(carId:ID!,carInput:CarInput!):Boolean
   }
 `;

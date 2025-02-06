@@ -13,12 +13,24 @@ export const createCar = async (carInput: CarInput) => {
   return newCar;
 }
 
-export const getCarById = async (id: string) => {
-  const car = await Car.findById(id);
+export const getCarById = async (carId: string) => {
+  const car = await Car.findById(carId);
 
   if (!car) {
-    throw new Error(`Car:${id} not find`);
+    throw new Error(`Car:${carId} not find`);
   }
 
   return car;
 }
+
+export const updateCar = async (carId: string, carInput: CarInput) => {
+  const car = await Car.findById(carId);
+
+  if (!car) {
+    throw new Error(`Car:${carId} not find`);
+  }
+
+  await car.set(carInput).save();
+  return true;
+}
+
