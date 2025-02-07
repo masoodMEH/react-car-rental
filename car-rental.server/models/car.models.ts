@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-const carSchema = new mongoose.Schema({
+import { CarBrand, CarCategories, CarDoors, CarFuelTypes, CarSeats, CarStatus, CarTransmissions, ICar } from '@car-rental/shared';
+
+const carSchema = new mongoose.Schema<ICar>({
     name: {
         type: String,
         required: [true, "Please Enter car name"]
@@ -11,7 +13,11 @@ const carSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: "Draft"
+        default: "Draft",
+        enum: {
+            values: CarStatus,
+            message: "please select correct status of car"
+        }
     },
     rentPerDay: {
         type: Number,
@@ -30,30 +36,22 @@ const carSchema = new mongoose.Schema({
     brand: {
         type: String,
         required: [true, "Please Enter car brand"],
-        // enum: {
-        //     values: [
-        //         "Audi",
-        //         "BMW",
-        //         "Chevorlet",
-        //         "Ford",
-        //         "Ford",
-        //         "Honda",
-        //         "Hyundai",
-        //         "Mercedes Benz",
-        //         "Nissan",
-        //         "Toyota",
-        //         "Volkswagen",
-        //         "Volvo",
-        //     ]
-        // }
+        enum: {
+            values: CarBrand,
+            message: "please select correct brand for car"
+        }
     },
     year: {
         type: Number,
         required: [true, "Please Enter car year"]
     },
-    transmission: {
+    transmissions: {
         type: String,
-        required: [true, "Please Enter car transmission"]
+        required: [true, "Please Enter car transmission"],
+        enum: {
+            values: CarTransmissions,
+            message: "please select correct transmission for car"
+        }
     },
     milleage: {
         type: Number,
@@ -65,19 +63,35 @@ const carSchema = new mongoose.Schema({
     },
     seats: {
         type: Number,
-        required: [true, "Please Enter car seats"]
+        required: [true, "Please Enter car seats"],
+        enum: {
+            values: CarSeats,
+            message: "please select correct seats for car"
+        }
     },
     doors: {
         type: Number,
-        required: [true, "Please Enter car doors"]
+        required: [true, "Please Enter car doors"],
+        enum: {
+            values: CarDoors,
+            message: "please select correct doors for car"
+        }
     },
     fuelType: {
         type: String,
-        required: [true, "Please Enter car fuel type"]
+        required: [true, "Please Enter car fuel type"],
+        enum: {
+            values: CarFuelTypes,
+            message: "please select correct fuelType for car",
+        }
     },
     category: {
         type: String,
-        required: [true, "Please Enter car category"]
+        required: [true, "Please Enter car category"],
+        enum: {
+            values: CarCategories,
+            message: "please select correct category for car",
+        }
     },
     reviews: [String]
 },
@@ -93,5 +107,5 @@ carSchema.virtual("ratings").get(function () {
     }
 })
 
-const Car = mongoose.model("Car", carSchema);
+const Car = mongoose.model<ICar>("Car", carSchema);
 export default Car;
